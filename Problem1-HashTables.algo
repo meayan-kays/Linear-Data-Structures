@@ -1,0 +1,48 @@
+ALGORITHM Sum_Differents_Elements
+VAR
+    arr1 : INTEGER[10];
+    arr2 : INTEGER[10];
+    i,j,count : INTEGER;
+    sum : INTEGER:=0;
+    ht : HASH_TABLE<INTEGER,INTEGER>
+    arr : INTEGER[20];
+BEGIN
+    write("Insert first array elements : ");
+    FOR i FROM 0 TO arr1.length-1 STEP 1  DO
+        read(arr1[i]);
+    END_FOR
+    write("Insert second array elements : ");
+    FOR j FROM 0 TO arr2.length-1 STEP 1  DO
+        read(arr2[j]);
+    END_FOR
+
+    FOR i FROM 0 TO arr1.length STEP 1  DO
+        IF (ht.lookup(arr1[i]) = TRUE) THEN
+            count := ht.get(arr1[i]);
+            ht.insert(arr1[i],count+1)
+        ELSE
+            ht.insert(arr1[i],1)
+        END_IF
+    END_FOR
+
+    FOR j FROM 0 TO arr2.length STEP 1  DO
+        IF (ht.lookup(arr2[j]) = TRUE) THEN
+            count := ht.get(arr2[j]);
+            ht.insert(arr2[j],count+1)
+        ELSE
+            ht.insert(arr2[j],1)
+        END_IF
+    END_FOR
+
+    arr := ht.getKeys();
+
+    FOR i FROM 0 TO arr.length-1 STEP 1  DO
+        count = ht.get(arr[i]);
+        IF (count = 1) THEN
+            sum := sum + arr[i];
+        END_IF
+    END_FOR
+
+    write("The sum of different elements of two arrays is ", sum)
+
+END
